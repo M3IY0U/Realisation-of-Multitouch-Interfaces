@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace video_processing
@@ -7,7 +6,7 @@ namespace video_processing
     {
         private static List<Touch> _currentTouches = new List<Touch>();
         private int _idCounter;
-        private const double MaxDistance = 10;
+        private const double MaxDistance = 35;
 
         public List<Touch> Track(List<Blob> blobs)
         {
@@ -26,11 +25,10 @@ namespace video_processing
 
             return _currentTouches;
         }
-
-
+        
         private static void UpdateTouch(Touch touch, ref List<Blob> blobs)
         {
-            var closestBlob = new KeyValuePair<Blob, double>(null, Double.PositiveInfinity);
+            var closestBlob = new KeyValuePair<Blob, double>(null, double.PositiveInfinity);
             foreach (var blob in blobs)
             {
                 var distance = touch.Position.DistanceTo(blob.Position);
@@ -40,12 +38,14 @@ namespace video_processing
                 }
             }
 
+            // if no close blob was found for the touch, remove it
             if (closestBlob.Key == null)
             {
                 _currentTouches.Remove(touch);
                 return;
             }
 
+            // if a blob was found, move the touch to its position and remove it from the remaining blobs
             _currentTouches.Find(t => t.Id == touch.Id)?.MoveTouch(closestBlob.Key.Position);
             blobs.Remove(closestBlob.Key);
         }
