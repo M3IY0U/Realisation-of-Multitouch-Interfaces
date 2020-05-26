@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-namespace video_processing
+namespace video_processing.Processing
 {
     public class Tracker
     {
         private static List<Touch> _currentTouches = new List<Touch>();
         private int _idCounter;
-        private const double MaxDistance = 35;
+        private const double MaxDistance = 25;
 
         public List<Touch> Track(List<Blob> blobs)
         {

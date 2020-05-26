@@ -8,6 +8,11 @@
     <ItemGroup>
       <PackageReference Include="OpenCvSharp4" Version="4.3.0.20200421" />
       <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.3.0.20200421" />
+      <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-preview.4.20251.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="External" />
     </ItemGroup>
 
 </Project>

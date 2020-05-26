@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenCvSharp;
+using video_processing.Processing;
+using video_processing.Util;
 
 namespace video_processing
 {
@@ -17,9 +19,9 @@ namespace video_processing
         {
             var capture = new VideoCapture("mt_camera_raw.AVI");
             var sleepTime = (int) Math.Round(1000 / capture.Fps);
-            var blobList = new List<Touch>();
             var background = new Mat();
             var tracker = new Tracker();
+            var sender = new TuioSender("127.0.0.1", 3333, capture.FrameWidth, capture.FrameHeight);
 
             using (var window = new Window("Video Processing"))
             {
@@ -44,10 +46,10 @@ namespace video_processing
 
                     var foundBlobs = DetectBlobs(contours, hierarchy, original);
 
-                    blobList = tracker.Track(foundBlobs);
+                    var trackedTouches = tracker.Track(foundBlobs);
 
                     // put an id next to each ellipse and draw the path
-                    foreach (var b in blobList)
+                    foreach (var b in trackedTouches)
                     {
                         Cv2.PutText(original, $"{b.Id}", (Point) b.Position,
                             HersheyFonts.HersheyPlain, 1, Scalar.White);
@@ -55,10 +57,12 @@ namespace video_processing
                         {
                             if (i % 2 != 0)
                             {
-                                Cv2.ArrowedLine(original, (Point) b.Path[i - 1], (Point) b.Path[i], Scalar.Firebrick);
+                                Cv2.ArrowedLine(original, (Point) b.Path[i - 1], (Point) b.Path[i], Scalar.Firebrick, 2);
                             }
                         }
                     }
+                    
+                    sender.SendTouches(trackedTouches);
 
                     window.ShowImage(original);
                     OnFrameComplete();
@@ -68,8 +72,6 @@ namespace video_processing
                         Cv2.WaitKey();
                 }
             }
-
-            Console.WriteLine($"{blobList.Count} entries in the list");
         }
 
         private static List<Blob> DetectBlobs(Point[][] contours, HierarchyIndex[] hierarchy, Mat original)

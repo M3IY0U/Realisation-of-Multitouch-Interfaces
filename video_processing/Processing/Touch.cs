@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using OpenCvSharp;
 
-namespace video_processing
+namespace video_processing.Processing
 {
     public class Touch
     {
