@@ -9,7 +9,7 @@ namespace GestureRecognizer.GeometricRecognizer
     {
         private Path2D NormalizePath(Path2D points)
         {
-            Resample(ref points);
+            points = Resample(points);
 
             if (RotationInvariance)
                 RotateToZero(ref points);
@@ -114,29 +114,29 @@ namespace GestureRecognizer.GeometricRecognizer
             return new Point2D(x, y);
         }
 
-        private void Resample(ref Path2D points)
+        private Path2D Resample(Path2D points)
         {
-            double interval = PathLength(points) / (NumPointsInGesture - 1); // interval length
-            double D = 0.0;
-            Path2D newPoints = new Path2D();
+            var interval = PathLength(points) / (NumPointsInGesture - 1); // interval length
+            var d = 0.0;
+            var newPoints = new Path2D {points.First()};
 
-            //--- Store first point since we'll never resample it out of eXistence
-            newPoints.Add(points.First());
-            for (int i = 1; i < points.Count; i++)
+            var limit = points.Count;
+            //--- Store first point since we'll never resample it out of existence
+            for (var i = 1; i < limit; i++)
             {
-                Point2D currentPoint = points[i];
-                Point2D previousPoint = points[i - 1];
-                double d = GetDistance(previousPoint, currentPoint);
-                if ((D + d) >= interval)
+                var currentPoint = points[i];
+                var previousPoint = points[i - 1];
+                var distance = GetDistance(previousPoint, currentPoint);
+                if ((d + distance) >= interval)
                 {
-                    double qX = previousPoint.X + ((interval - D) / d) * (currentPoint.X - previousPoint.X);
-                    double qY = previousPoint.Y + ((interval - D) / d) * (currentPoint.Y - previousPoint.Y);
+                    var qX = previousPoint.X + ((interval - d) / distance) * (currentPoint.X - previousPoint.X);
+                    var qY = previousPoint.Y + ((interval - d) / distance) * (currentPoint.Y - previousPoint.Y);
                     var point = new Point2D(qX, qY);
                     newPoints.Add(point);
-                    points.Insert(i, point);
-                    D = 0.0;
+                    points.Insert(1 + i, point);
+                    d = 0.0;
                 }
-                else D += d;
+                else d += distance;
             }
 
             // sometimes we fall a rounding-error short of adding the last point, so add it if so
@@ -145,7 +145,7 @@ namespace GestureRecognizer.GeometricRecognizer
                 newPoints.Add(points.Last());
             }
 
-            points = newPoints;
+            return newPoints;
         }
 
         private double PathLength(Path2D points)
@@ -205,10 +205,8 @@ namespace GestureRecognizer.GeometricRecognizer
 
         private double PathDistance(Path2D pts1, Path2D pts2)
         {
-            // >assumes that pts1.Count == pts2.Count
-            // ja ok und was return ich dann alder
             if (pts1.Count != pts2.Count)
-                return 1;
+                return double.MaxValue;
             var distance = pts1.Select((t, i) => GetDistance(t, pts2[i])).Sum();
             return (distance / pts1.Count);
         }

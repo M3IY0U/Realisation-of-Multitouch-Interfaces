@@ -27,7 +27,6 @@ namespace GestureRecognizer.GeometricRecognizer
         public GeometricRecognizer()
         {
             Templates = new List<GestureTemplate>();
-            LoadTemplates();
             //--- How many templates do we have to compare the user's gesture against?
             //--- Can get ~97% accuracy with just one template per symbol to recognize
             //numTemplates = 16;
@@ -51,6 +50,7 @@ namespace GestureRecognizer.GeometricRecognizer
             AnglePrecision = 2.0;
             //--- A magic number used in pre-processing the symbols
             GoldenRatio = 0.5 * (-1.0 + Math.Sqrt(5.0));
+            LoadTemplates();
         }
 
         public RecognitionResult Recognize(Path2D points)
@@ -71,19 +71,19 @@ namespace GestureRecognizer.GeometricRecognizer
             //--- We haven't found a good match yet
             int indexOfBestMatch = -1;
 
+            GestureTemplate best = null;
             //--- Check the shape passed in against every shape in our database
-            for (int i = 0; i < Templates.Count; i++)
+            
+            foreach (var template in Templates)
             {
                 //--- Calculate the total distance of each point in the passed in
                 //---  shape against the corresponding point in the template
                 //--- We'll rotate the shape a few degrees in each direction to
                 //---  see if that produces a better match
-                double distance = DistanceAtBestAngle(points, Templates[i]);
-                if (distance < bestDistance)
-                {
-                    bestDistance = distance;
-                    indexOfBestMatch = i;
-                }
+                var distance = DistanceAtBestAngle(points, template);
+                if (!(distance < bestDistance)) continue;
+                bestDistance = distance;
+                best = template;
             }
 
             //--- Turn the distance into a percentage by dividing it by 
@@ -95,13 +95,10 @@ namespace GestureRecognizer.GeometricRecognizer
 
             //--- Make sure we actually found a good match
             //--- Sometimes we don't, like when the user doesn't draw enough points
-            if (-1 == indexOfBestMatch)
-            {
-                Console.WriteLine("Couldn't find a good match.");
+            if (best == null)
                 return new RecognitionResult("Unknown", 1);
-            }
 
-            RecognitionResult bestMatch = new RecognitionResult(Templates[indexOfBestMatch].Name, score);
+            RecognitionResult bestMatch = new RecognitionResult(best.Name, score);
             return bestMatch;
         }
 
@@ -109,11 +106,15 @@ namespace GestureRecognizer.GeometricRecognizer
         {
             var samples = new SampleGestures();
             foreach (var gestureMethod in typeof(SampleGestures).GetMethods().Where(x =>
-                x.Name != "GetType" && 
-                x.Name != "ToString" && 
-                x.Name != "Equals" && 
+                x.Name != "GetType" &&
+                x.Name != "ToString" &&
+                x.Name != "Equals" &&
                 x.Name != "GetHashCode"))
-                Templates.Add(new GestureTemplate(gestureMethod.Name, (Path2D) gestureMethod.Invoke(samples, null)));
+            {
+                var path = (Path2D) gestureMethod.Invoke(samples, null);
+                path = NormalizePath(path);
+                Templates.Add(new GestureTemplate(gestureMethod.Name, path));
+            }
         }
     }
 }
