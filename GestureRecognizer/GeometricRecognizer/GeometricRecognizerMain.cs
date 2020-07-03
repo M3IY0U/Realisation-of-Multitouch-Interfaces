@@ -69,7 +69,6 @@ namespace GestureRecognizer.GeometricRecognizer
             //--- That way everything will be better than that
             double bestDistance = double.MaxValue;
             //--- We haven't found a good match yet
-            int indexOfBestMatch = -1;
 
             GestureTemplate best = null;
             //--- Check the shape passed in against every shape in our database

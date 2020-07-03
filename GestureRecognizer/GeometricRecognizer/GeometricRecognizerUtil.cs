@@ -120,9 +120,8 @@ namespace GestureRecognizer.GeometricRecognizer
             var d = 0.0;
             var newPoints = new Path2D {points.First()};
 
-            var limit = points.Count;
             //--- Store first point since we'll never resample it out of existence
-            for (var i = 1; i < limit; i++)
+            for (var i = 1; i < points.Count; i++)
             {
                 var currentPoint = points[i];
                 var previousPoint = points[i - 1];
@@ -133,7 +132,7 @@ namespace GestureRecognizer.GeometricRecognizer
                     var qY = previousPoint.Y + ((interval - d) / distance) * (currentPoint.Y - previousPoint.Y);
                     var point = new Point2D(qX, qY);
                     newPoints.Add(point);
-                    points.Insert(1 + i, point);
+                    points.Insert(i, point);
                     d = 0.0;
                 }
                 else d += distance;
