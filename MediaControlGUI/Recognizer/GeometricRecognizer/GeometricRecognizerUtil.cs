@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
-using GestureRecognizer.Types;
+using MediaControlGUI.Recognizer.Types;
 
-namespace GestureRecognizer.GeometricRecognizer
+namespace MediaControlGUI.Recognizer.GeometricRecognizer
 {
     // UTILITY FUNCTIONS
     public partial class GeometricRecognizer
     {
-        private Path2D NormalizePath(Path2D points)
+        public Path2D NormalizePath(Path2D points)
         {
             points = Resample(points);
 

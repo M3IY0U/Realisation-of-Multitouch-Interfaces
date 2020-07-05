@@ -1,4 +1,4 @@
-namespace GestureRecognizer.Types
+namespace MediaControlGUI.Recognizer.Types
 {
     public class Rectangle
     {

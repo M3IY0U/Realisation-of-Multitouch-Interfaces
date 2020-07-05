@@ -1,6 +1,6 @@
-using GestureRecognizer.Types;
+using MediaControlGUI.Recognizer.Types;
 
-namespace GestureRecognizer
+namespace MediaControlGUI.Recognizer
 {
     public class SampleGestures
     {
@@ -600,42 +600,6 @@ namespace GestureRecognizer
                 new Point2D(159,237)
             };
         }
-        public Path2D LeftToRightLine()
-        {
-            return new Path2D{
-                new Point2D(80,160),
-                new Point2D(82,160),
-                new Point2D(82,160),
-                new Point2D(83,160),
-                new Point2D(83,160),
-                new Point2D(85,160),
-                new Point2D(88,160),
-                new Point2D(90,160),
-                new Point2D(92,160),
-                new Point2D(94,160),
-                new Point2D(99,160),
-                new Point2D(102,160),
-                new Point2D(106,160),
-                new Point2D(109,160),
-                new Point2D(117,160),
-                new Point2D(123,160),
-                new Point2D(126,160),
-                new Point2D(135,160),
-                new Point2D(142,160),
-                new Point2D(145,160),
-                new Point2D(152,160),
-                new Point2D(154,160),
-                new Point2D(165,160),
-                new Point2D(174,160),
-                new Point2D(179,160),
-                new Point2D(186,160),
-                new Point2D(191,160),
-                new Point2D(195,160),
-                new Point2D(197,160),
-                new Point2D(201,160),
-                new Point2D(202,160)
-            };
-        }
         public Path2D LineDownDiagonal()
         {
             return new Path2D{
@@ -1017,41 +981,6 @@ namespace GestureRecognizer
 				new Point2D(126,253),
 				new Point2D(119,253),
 				new Point2D(115,253)
-			};
-		}
-        public Path2D RightToLeftLine()
-		{
-			return new Path2D{
-				new Point2D(200,160),
-				new Point2D(195,160),
-				new Point2D(190,160),
-				new Point2D(185,160),
-				new Point2D(180,160),
-				new Point2D(175,160),
-				new Point2D(170,160),
-				new Point2D(165,160),
-				new Point2D(160,160),
-				new Point2D(155,160),
-				new Point2D(150,160),
-				new Point2D(160,160),
-				new Point2D(140,160),
-				new Point2D(160,160),
-				new Point2D(155,160),
-				new Point2D(150,160),
-				new Point2D(145,160),
-				new Point2D(140,160),
-				new Point2D(135,160),
-				new Point2D(130,160),
-				new Point2D(125,160),
-				new Point2D(120,160),
-				new Point2D(115,160),
-				new Point2D(110,160),
-				new Point2D(105,160),
-				new Point2D(100,160),
-				new Point2D(95,160),
-				new Point2D(85,160),
-				new Point2D(75,160),
-				new Point2D(70,160)
 			};
 		}
         public Path2D RightToLeftLine2()

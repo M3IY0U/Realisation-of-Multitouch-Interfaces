@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GestureRecognizer.Types
+namespace MediaControlGUI.Recognizer.Types
 {
     public class Path2D : List<Point2D>
     {

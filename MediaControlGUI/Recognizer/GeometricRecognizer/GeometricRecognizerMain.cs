@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GestureRecognizer.Types;
+using MediaControlGUI.Recognizer.Types;
 
-namespace GestureRecognizer.GeometricRecognizer
+namespace MediaControlGUI.Recognizer.GeometricRecognizer
 {
     // MAIN FUNCTIONALITY
     public partial class GeometricRecognizer
@@ -22,7 +22,7 @@ namespace GestureRecognizer.GeometricRecognizer
             }
         }
 
-        protected List<GestureTemplate> Templates;
+        public List<GestureTemplate> Templates;
 
         public GeometricRecognizer()
         {
@@ -59,7 +59,7 @@ namespace GestureRecognizer.GeometricRecognizer
             //---  or else recognition will be impossible
             if (!Templates.Any())
             {
-                Console.WriteLine("No templates loaded so no symbols to match.");
+                Console.WriteLine(@"No templates loaded so no symbols to match.");
                 return new RecognitionResult("Unknown", 1);
             }
 

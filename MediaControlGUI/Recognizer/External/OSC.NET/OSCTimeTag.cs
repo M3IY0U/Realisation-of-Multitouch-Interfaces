@@ -1,4 +1,4 @@
-﻿/* Microsoft Public License (MS-PL)
+﻿﻿/* Microsoft Public License (MS-PL)
 
  * 2013, Paul Varcholik
  * http://bespokesoftware.org/

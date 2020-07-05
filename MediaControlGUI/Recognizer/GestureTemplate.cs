@@ -1,6 +1,6 @@
-using GestureRecognizer.Types;
+using MediaControlGUI.Recognizer.Types;
 
-namespace GestureRecognizer
+namespace MediaControlGUI.Recognizer
 {
     public class GestureTemplate
     {
