@@ -47,11 +47,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Controls.cs" />
-        <Compile Include="Form1.cs">
+        <Compile Include="MediaControlForm.cs">
             <SubType>Form</SubType>
         </Compile>
-        <Compile Include="Form1.Designer.cs">
-            <DependentUpon>Form1.cs</DependentUpon>
+        <Compile Include="MediaControlForm.Designer.cs">
+            <DependentUpon>MediaControlForm.cs</DependentUpon>
         </Compile>
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,8 +78,8 @@
         <Compile Include="Recognizer\Types\Point2D.cs" />
         <Compile Include="Recognizer\Types\RecognitionResult.cs" />
         <Compile Include="Recognizer\Types\Rectangle.cs" />
-        <EmbeddedResource Include="Form1.resx">
-          <DependentUpon>Form1.cs</DependentUpon>
+        <EmbeddedResource Include="MediaControlForm.resx">
+          <DependentUpon>MediaControlForm.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>

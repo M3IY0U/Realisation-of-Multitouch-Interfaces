@@ -4,9 +4,9 @@ using TUIO;
 
 namespace MediaControlGUI.Recognizer
 {
-    public class Listener : TuioListener
+    public sealed class Listener : TuioListener
     {
-        private Path2D _currentPath;
+        private readonly Path2D _currentPath;
         public event EventHandler<Path2D> GestureComplete;
         
         
@@ -70,7 +70,7 @@ namespace MediaControlGUI.Recognizer
             //Console.WriteLine("Refreshed");
         }
 
-        protected virtual void OnGestureComplete(Path2D completedPath)
+        private void OnGestureComplete(Path2D completedPath)
         {
             GestureComplete?.Invoke(this, completedPath);
         }

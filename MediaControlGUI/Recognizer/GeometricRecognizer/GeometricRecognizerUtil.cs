@@ -5,6 +5,7 @@ using MediaControlGUI.Recognizer.Types;
 namespace MediaControlGUI.Recognizer.GeometricRecognizer
 {
     // UTILITY FUNCTIONS
+    // COMMENTS FROM ORIGINAL C++ VERSION UNCHANGED
     public partial class GeometricRecognizer
     {
         public Path2D NormalizePath(Path2D points)

@@ -6,6 +6,7 @@ using MediaControlGUI.Recognizer.Types;
 namespace MediaControlGUI.Recognizer.GeometricRecognizer
 {
     // MAIN FUNCTIONALITY
+    // COMMENTS FROM ORIGINAL C++ VERSION UNCHANGED
     public partial class GeometricRecognizer
     {
         protected double HalfDiagonal, AngleRange, AnglePrecision, GoldenRatio;
