@@ -38,6 +38,7 @@ namespace MediaControlGUI
             InitializeComponent();
             UpdateComboBoxes();
             // event subscriptions
+            FormClosing += ExitApp;
             listener.GestureComplete += GestureComplete;
             comboBoxPrev.SelectedIndexChanged += PrevComboBoxIndexChanged;
             comboBoxPause.SelectedIndexChanged += PauseComboBoxIndexChanged;
@@ -227,5 +228,8 @@ namespace MediaControlGUI
             WindowState = FormWindowState.Normal;
             notifyIcon.Visible = false;
         }
+
+        private static void ExitApp(object sender, FormClosingEventArgs e)
+            => Environment.Exit(0);
     }
 }

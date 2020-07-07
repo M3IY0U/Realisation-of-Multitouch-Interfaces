@@ -7,31 +7,50 @@ namespace MediaControlGUI.Recognizer
     public sealed class Listener : TuioListener
     {
         private readonly Path2D _currentPath;
+        private int _cursorCount;
+        private int _frameCount;
         public event EventHandler<Path2D> GestureComplete;
-        
-        
+
         public Listener()
         {
+            _cursorCount = 0;
             _currentPath = new Path2D();
         }
-
-
+        
         public void addTuioCursor(TuioCursor tcur)
         {
+            _cursorCount++;
             _currentPath.Add(new Point2D(tcur.X, tcur.Y));
             Console.WriteLine($@"[{tcur.TuioTime.TotalMilliseconds}] Cursor #{tcur.CursorID} added");
         }
 
         public void updateTuioCursor(TuioCursor tcur)
         {
+            _frameCount++;
+            if (_cursorCount > 1 && _cursorCount < 3 && _frameCount % 10 == 0)
+            {
+                if(tcur.YSpeed < 0)
+                    Controls.VolumeUp();
+                else if(tcur.YSpeed > 0)
+                    Controls.VolumeDown();
+            }
             _currentPath.Add(new Point2D(tcur.X, tcur.Y));
             Console.WriteLine($@"[{tcur.TuioTime.TotalMilliseconds}] Cursor #{tcur.CursorID} updated");
         }
 
         public void removeTuioCursor(TuioCursor tcur)
         {
+            _frameCount = 0;
+            if (_cursorCount > 1)
+            {
+                _currentPath.Clear();
+                _cursorCount--;
+                return;   
+            }           
+            _cursorCount--;
             Console.WriteLine($@"[{tcur.TuioTime.TotalMilliseconds}] Cursor #{tcur.CursorID} removed");
-            OnGestureComplete(_currentPath);
+            if(_currentPath.Count > 1)
+                OnGestureComplete(_currentPath);
             _currentPath.Clear();
         }
 

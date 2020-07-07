@@ -5,7 +5,7 @@
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{95EC1138-F6D8-43CE-BA16-85EF9E540AC6}</ProjectGuid>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <RootNamespace>MediaControlGUI</RootNamespace>
         <AssemblyName>MediaControlGUI</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
