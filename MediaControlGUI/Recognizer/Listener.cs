@@ -26,8 +26,8 @@ namespace MediaControlGUI.Recognizer
 
         public void updateTuioCursor(TuioCursor tcur)
         {
-            _frameCount++;
-            if (_cursorCount > 1 && _cursorCount < 3 && _frameCount % 10 == 0)
+            _frameCount++; // frames are counted so the instruction is only executed every 10 frames to make changing the volume smoother for the user
+            if (_cursorCount > 1 && _cursorCount < 3 && _frameCount % 10 == 0) // two fingers for continuous gesture volume control 
             {
                 if(tcur.YSpeed < 0)
                     Controls.VolumeUp();
@@ -41,7 +41,7 @@ namespace MediaControlGUI.Recognizer
         public void removeTuioCursor(TuioCursor tcur)
         {
             _frameCount = 0;
-            if (_cursorCount > 1)
+            if (_cursorCount > 1) // for 2 finger (continuous) gestures
             {
                 _currentPath.Clear();
                 _cursorCount--;
@@ -53,7 +53,8 @@ namespace MediaControlGUI.Recognizer
                 OnGestureComplete(_currentPath);
             _currentPath.Clear();
         }
-
+        
+        // objects and blobs don't need to be implemented as our input only uses cursors
         public void addTuioObject(TuioObject tobj)
         {
             throw new NotImplementedException();
